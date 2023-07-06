@@ -647,8 +647,8 @@ def edit_activity(selected_item, values, activity_id):
     day_label.grid(row=1, column=0)
 
     cursor = db.cursor()
-    query = "SELECT t.start_date, t.end_date FROM trips t JOIN itineraries i ON t.trip_id = i.trip_id WHERE i.itinerary_name = %s"
-    cursor.execute(query, (table2.item(selected_item)['values'][0],))
+    query = "SELECT t.start_date, t.end_date FROM trips t JOIN itineraries i ON t.trip_id = i.trip_id JOIN activities a ON i.itinerary_id = a.itinerary_id WHERE a.activity_title = %s"
+    cursor.execute(query, (table3.item(selected_item)['values'][0],))
     result = cursor.fetchone()
     range_num = result[1].toordinal() - result[0].toordinal() + 1
     day_values = [str(i) for i in range(1, range_num + 1)]
