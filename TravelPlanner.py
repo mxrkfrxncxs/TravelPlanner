@@ -477,14 +477,6 @@ def create_activity(selected_item):
             max_activity_id = 0
         activity_id = max_activity_id + 1
 
-        # Check if goes_to already exists for the trip_id and destination_id
-        cursor.execute("SELECT * FROM goes_to WHERE trip_id = %s AND destination_id = %s", (trip_id, destination_id))
-        goes_to_exists = cursor.fetchone()
-
-        if not goes_to_exists:
-            cursor.execute("INSERT INTO goes_to (trip_id, destination_id) VALUES (%s, %s)", (trip_id, destination_id))
-            db.commit()
-
         # Insert the new activity into the activities table
         query = "INSERT INTO activities (activity_id, itinerary_id, activity_title, day, time, destination_id) " \
                 "VALUES (%s, %s, %s, %s, %s, %s)"
