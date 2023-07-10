@@ -410,8 +410,8 @@ def activity_table(event):
         query = "SELECT a.activity_title, a.day, a.time, d.destination_name " \
                 "FROM itineraries i JOIN activities a ON i.itinerary_id = a.itinerary_id " \
                 "LEFT JOIN destinations d ON a.destination_id = d.destination_id " \
-                "WHERE i.itinerary_name = %s ORDER BY day, time"
-        cursor.execute(query, (primary_key_value,))
+                "WHERE i.itinerary_name = %s AND i.itinerary_id = %s ORDER BY day, time"
+        cursor.execute(query, (primary_key_value, fetch_itinerary_id(primary_key_value)))
         data = cursor.fetchall()
 
         for index, row in enumerate(data):
